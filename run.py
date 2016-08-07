@@ -13,7 +13,7 @@ class BusTimes(MenuOption):
 
     def redraw(self, menu):
         t = datetime.datetime.now().strftime("%H:%M:%S.%f")
-        print(t + "cheese!")
+        print(t, "cheese!")
         menu.write_option(
                 row=1,
                 text='Hello World! How are you today?',
@@ -35,8 +35,8 @@ menu = Menu(
         lcd=dot3k.lcd
         )
 
-menu.right()
+# menu.right()
 
 while 1:
     menu.redraw()
-    time.sleep(1)
+    time.sleep(10)
