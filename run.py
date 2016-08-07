@@ -4,16 +4,18 @@
 
 from dot3k.menu import MenuOption
 
-class HelloWorld(MenuOption):
+class BusTimes(MenuOption):
+
+    def __init__(self):
+        MenuOption.__init__(self)
 
     def redraw(self, menu):
+        print("cheese!")
         menu.write_option(
                 row=1,
                 text='Hello World! How are you today?',
                 scroll=True
                 )
-
-        menu.clear_row(2)
 
 
 from dot3k.menu import Menu
@@ -25,7 +27,7 @@ dot3k.backlight.rgb(255, 255, 255)
 
 menu = Menu(
         structure={
-            'Hello World': HelloWorld()
+            'Bus': BusTimes()
             },
         lcd=dot3k.lcd
         )
