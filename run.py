@@ -15,7 +15,7 @@ class BusTimes(MenuOption):
 
     def get_bus_times(self):
         result = requests.get('http://bitofahack.com/post/getbusdata.php?stop=45011123')
-        return result.json()
+        return result.text
 
     def redraw(self, menu):
         t = datetime.datetime.now().strftime("%H:%M:%S.%f")
