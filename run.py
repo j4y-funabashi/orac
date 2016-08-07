@@ -4,6 +4,7 @@
 
 import datetime
 import subprocess
+import requests
 
 from dot3k.menu import MenuOption
 
@@ -13,10 +14,8 @@ class BusTimes(MenuOption):
         MenuOption.__init__(self)
 
     def get_bus_times(self):
-        result = subprocess.check_output(['/bin/ping', 'google.com', '-c', '4'])
-        result = result.split("\n")
-        result = result[len(result) - 2]
-        return result
+        result = requests.get('http://bitofahack.com/post/getbusdata.php?stop=45011123')
+        return result.json()
 
     def redraw(self, menu):
         t = datetime.datetime.now().strftime("%H:%M:%S.%f")
