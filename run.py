@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
+import datetime
+
 from dot3k.menu import MenuOption
 
 class BusTimes(MenuOption):
@@ -10,7 +12,8 @@ class BusTimes(MenuOption):
         MenuOption.__init__(self)
 
     def redraw(self, menu):
-        print("cheese!")
+        t = datetime.datetime.now().strftime("%H:%M:%S.%f")
+        print(t + "cheese!")
         menu.write_option(
                 row=1,
                 text='Hello World! How are you today?',
@@ -36,4 +39,4 @@ menu.right()
 
 while 1:
     menu.redraw()
-    time.sleep(0.01)
+    time.sleep(1)
