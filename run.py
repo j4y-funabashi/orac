@@ -1,49 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import orac
 
-import datetime
-import subprocess
-import requests
-
-from dot3k.menu import MenuOption
-
-class BusTimes(MenuOption):
-
-    def __init__(self):
-        MenuOption.__init__(self)
-
-    def get_bus_times(self):
-        result = requests.get('http://bitofahack.com/post/getbusdata.php?stop=45011123')
-        print(result.request.headers)
-        return result.text
-
-    def redraw(self, menu):
-        t = datetime.datetime.now().strftime("%H:%M:%S.%f")
-        print(t + self.get_bus_times())
-        menu.write_option(
-                row=1,
-                text='Hello World! How are you today?',
-                scroll=True
-                )
-
-
-from dot3k.menu import Menu
-import dot3k.backlight
-import dot3k.lcd
+from dotenv import load_dotenv, find_dotenv
+from os import environ
 import time
 
-dot3k.backlight.rgb(255, 255, 255)
-
-menu = Menu(
-        structure={
-            'Bus': BusTimes()
-            },
-        lcd=dot3k.lcd
-        )
-
-menu.right()
+load_dotenv(find_dotenv())
+api_url = "http://api.openweathermap.org/data/2.5"
+city = "Leeds,uk"
+api_key = environ.get("WEATHER_API_KEY")
 
 while 1:
-    menu.redraw()
+    print(orac.get_weather(api_url, city, api_key))
     time.sleep(60)
