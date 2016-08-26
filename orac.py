@@ -12,19 +12,14 @@ def get_weather(api_url, city, api_key):
 def get_bus_times(stop_atco_code, app_id, app_key, api_url):
     url = "%s/%s/live.json?app_id=%s&app_key=%s&group=no&nextbuses=yes" % (api_url, stop_atco_code, app_id, app_key)
     bus_times = requests.get(url).json()
-    print(bus_times["request_time"])
-    print(bus_times["stop_name"])
-    for bus in bus_times['departures']['all']:
-        print((bus['aimed_departure_time'], bus['expected_departure_time'], bus['best_departure_estimate'], bus['line'], bus['direction']))
+    return [(bus['aimed_departure_time'], bus['line'], bus['direction']) for bus in bus_times['departures']['all']]
 
 def get_mpd_playlist():
     client = MPDClient()
     client.timeout = 10
     client.connect("localhost", 6600)
-    current_song = "> %s - %s" % (client.currentsong()['artist'], client.currentsong()['title'])
-    next_song = client.playlistid(client.status()['nextsongid']).pop()
-    next_song = "%s - %s" % (next_song['artist'], next_song['title'])
-    print(current_song)
-    print(next_song)
+    current_song = "> {0[artist]} - {0[title]}".format(client.currentsong())
+    next_song = "{0[artist]} - {0[title]}".format(client.playlistid(client.status()['nextsongid']).pop())
     client.close()
     client.disconnect()
+    return [current_song, next_song]
