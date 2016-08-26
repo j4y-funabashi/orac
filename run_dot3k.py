@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from dot3k.menu import MenuOption
+import dot3k.lcd as lcd
+import time
+import orac
 
-class Orac(MenuOption):
+def redraw():
+    times = orac.get_bus_times(stop_atco_code, app_id, app_key, api_url)
+    lcd.set_cursor_position(0, 0)
+    lcd.write(times[0])
+    lcd.set_cursor_position(0, 1)
+    lcd.write(times[1])
+    lcd.set_cursor_position(0, 2)
+    lcd.write(times[2])
 
-    def __init__(self):
-        self.selected_option = 0
-        self.options = [
-                {"title": "Next Bus", "action": self.handle_nextbus, "icon": " "}
-                ]
-        MenuOption.__init__(self)
+redraw()

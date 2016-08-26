@@ -12,7 +12,7 @@ def get_weather(api_url, city, api_key):
 def get_bus_times(stop_atco_code, app_id, app_key, api_url):
     url = "%s/%s/live.json?app_id=%s&app_key=%s&group=no&nextbuses=yes" % (api_url, stop_atco_code, app_id, app_key)
     bus_times = requests.get(url).json()
-    return [(bus['aimed_departure_time'], bus['line'], bus['direction']) for bus in bus_times['departures']['all']]
+    return ["{0[aimed_departure_time]} {0[line]} {0[direction]}".format(bus) for bus in bus_times['departures']['all']]
 
 def get_mpd_playlist():
     client = MPDClient()
