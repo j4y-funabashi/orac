@@ -3,6 +3,7 @@
 
 import dot3k.lcd as lcd
 import time
+from os import environ
 from orac import get_bus_times
 
 def redraw():
