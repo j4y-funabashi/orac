@@ -7,6 +7,9 @@ from dotenv import load_dotenv, find_dotenv
 from os import environ
 import time
 
+
+orac.get_mpd_playlist()
+
 load_dotenv(find_dotenv())
 api_url = "http://api.openweathermap.org/data/2.5"
 city = "Leeds,uk"
