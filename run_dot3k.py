@@ -3,10 +3,10 @@
 
 import dot3k.lcd as lcd
 import time
-import orac
+from orac import get_bus_times
 
 def redraw():
-    times = orac.get_bus_times(stop_atco_code, app_id, app_key, api_url)
+    times = get_bus_times(stop_atco_code, app_id, app_key, api_url)
     lcd.set_cursor_position(0, 0)
     lcd.write(times[0])
     lcd.set_cursor_position(0, 1)
