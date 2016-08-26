@@ -9,9 +9,14 @@ sudo apt-get update \
     weechat \
     python3-dev \
     libssl-dev \
-    libffi-dev
+    libffi-dev \
+    mpd \
+    mpc
 
 sudo pip3 install virtualenvwrapper
+
+cp /vagrant/resources/mpd.conf /etc/
+sudo service mpd restart
 
 # mkvirtualenv orac
 
