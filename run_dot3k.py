@@ -14,10 +14,10 @@ class BusTimes(MenuOption):
 
     def update(self):
         # Update only once every 5 minutes
-        if self.millis() - self.last_update < 1000 * 300 and not force:
+        if self.millis() - self.last_update < 1000 * 30:
             return False
         self.last_update = self.millis()
-        self.output[0]["text"] = string(self.millis())
+        self.output[0]["text"] = str(self.millis())
 
     def redraw(self, menu):
         self.update()
