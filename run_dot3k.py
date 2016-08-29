@@ -2,22 +2,35 @@
 # -*- coding: utf-8 -*-
 
 from dot3k.menu import MenuOption
+import orac
 
 class BusTimes(MenuOption):
 
     def __init__(self):
         self.output = [
+                {"text": "yo"},
+                {"text": "yo"},
                 {"text": "yo"}
                 ]
         self.last_update = 0
+        self.update_interval = 300
         MenuOption.__init__(self)
 
     def update(self):
-        # Update only once every 5 minutes
-        if self.millis() - self.last_update < 1000 * 30:
+
+        if self.millis() - self.last_update < 1000 * self.update_interval:
             return False
+
         self.last_update = self.millis()
-        self.output[0]["text"] = str(self.millis())
+
+        stop_atco_code = "450010861"
+        api_url = "http://transportapi.com/v3/uk/bus/stop"
+        app_id = ""
+        app_key = ""
+        times = orac.get_bus_times(stop_atco_code, app_id, app_key, api_url)
+        self.output[0]["text"] = times[0]
+        self.output[1]["text"] = times[1]
+        self.output[2]["text"] = times[2]
 
     def redraw(self, menu):
         self.update()
@@ -38,9 +51,7 @@ from dot3k.menu import Menu
 import time
 
 menu = Menu({
-        'Music': {
-            'BusTimes': BusTimes()
-        },
+        'BusTimes': BusTimes()
     },
     lcd,  # Draw to dot3k.lcd
 )
