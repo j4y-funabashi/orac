@@ -1,23 +1,71 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from dot3k.menu import MenuOption
+
+class Playlist(MenuOption):
+
+    def __init__(self):
+        self.selected_option = 0
+        self.options = []
+        MenuOption.__init__(self)
+
+    def redraw(self, menu):
+        menu.write_option(
+            row=0,
+            margin=1,
+            text="Playlist"
+        )
+
+        menu.write_option(
+            row=1,
+            margin=1,
+            icon='>',
+            text=self.millis()
+        )
+
+
+
+import dot3k.joystick as joystick
 import dot3k.lcd as lcd
+from dot3k.menu import Menu
 import time
-from os import environ
-from orac import get_bus_times
 
-def redraw():
-    stop_atco_code = "450010861"
-    api_url = "http://transportapi.com/v3/uk/bus/stop"
-    app_id = environ.get("BUS_APP_ID")
-    app_key = environ.get("BUS_APP_KEY")
+menu = Menu({
+        'Music': {
+            'Playlist': Playlist()
+        },
+    },
+    lcd,  # Draw to dot3k.lcd
+)
 
-    times = get_bus_times(stop_atco_code, app_id, app_key, api_url)
-    lcd.set_cursor_position(0, 0)
-    lcd.write(times[0])
-    lcd.set_cursor_position(0, 1)
-    lcd.write(times[1])
-    lcd.set_cursor_position(0, 2)
-    lcd.write(times[2])
+REPEAT_DELAY = 0.5
 
-redraw()
+@joystick.on(joystick.UP)
+def handle_up(pin):
+    menu.up()
+    joystick.repeat(joystick.UP, menu.up, REPEAT_DELAY, 0.9)
+
+@joystick.on(joystick.DOWN)
+def handle_down(pin):
+    menu.down()
+    joystick.repeat(joystick.DOWN, menu.down, REPEAT_DELAY, 0.9)
+
+@joystick.on(joystick.LEFT)
+def handle_left(pin):
+    menu.left()
+    joystick.repeat(joystick.LEFT, menu.left, REPEAT_DELAY, 0.9)
+
+@joystick.on(joystick.RIGHT)
+def handle_right(pin):
+    menu.right()
+    joystick.repeat(joystick.RIGHT, menu.right, REPEAT_DELAY, 0.9)
+
+@joystick.on(joystick.BUTTON)
+def handle_button(pin):
+    menu.select()
+
+while 1:
+    # Redraw the menu, since we don't want to hand this off to a thread
+    menu.redraw()
+    time.sleep(0.05)
