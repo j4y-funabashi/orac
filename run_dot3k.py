@@ -14,16 +14,11 @@ class Playlist(MenuOption):
         menu.write_option(
             row=0,
             margin=1,
+            icon='>',
             text="Playlist"
         )
 
-        menu.write_option(
-            row=1,
-            margin=1,
-            icon='>',
-            text=self.millis()
-        )
-
+        print(self.millis())
 
 
 import dot3k.joystick as joystick
