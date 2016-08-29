@@ -38,11 +38,18 @@ class BusTimes(MenuOption):
         menu.write_option(
             row=0,
             margin=1,
-            icon='>',
             text=self.output[0]["text"]
         )
-        menu.clear_row(1)
-        menu.clear_row(2)
+        menu.write_option(
+            row=1,
+            margin=1,
+            text=self.output[1]["text"]
+        )
+        menu.write_option(
+            row=2,
+            margin=1,
+            text=self.output[2]["text"]
+        )
 
 
 import dot3k.joystick as joystick
