@@ -3,24 +3,33 @@
 
 from dot3k.menu import MenuOption
 
-class Playlist(MenuOption):
+class BusTimes(MenuOption):
 
     def __init__(self):
-        self.selected_option = 0
-        self.options = []
+        self.output = [
+                {"text": "yo"}
+                ]
+        self.last_update = 0
         MenuOption.__init__(self)
 
+    def update(self):
+        # Update only once every 5 minutes
+        if self.millis() - self.last_update < 1000 * 300 and not force:
+            return False
+        self.last_update = self.millis()
+        self.output[0]["text"] = string(self.millis())
+
     def redraw(self, menu):
+        self.update()
+
         menu.write_option(
             row=0,
             margin=1,
             icon='>',
-            text="Playlist"
+            text=self.output[0]["text"]
         )
         menu.clear_row(1)
         menu.clear_row(2)
-
-        print(self.millis())
 
 
 import dot3k.joystick as joystick
@@ -30,7 +39,7 @@ import time
 
 menu = Menu({
         'Music': {
-            'Playlist': Playlist()
+            'BusTimes': BusTimes()
         },
     },
     lcd,  # Draw to dot3k.lcd
