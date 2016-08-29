@@ -17,6 +17,8 @@ class Playlist(MenuOption):
             icon='>',
             text="Playlist"
         )
+        menu.clear_row(1)
+        menu.clear_row(2)
 
         print(self.millis())
 
