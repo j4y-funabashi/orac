@@ -23,3 +23,14 @@ def get_mpd_playlist():
     client.close()
     client.disconnect()
     return [current_song, next_song]
+
+def load_radio():
+    pls_url = get_playlist_url("http://www.radiofeeds.co.uk/bbc6music.pls")
+    print(pls_url)
+    return ""
+
+def get_playlist_url(url):
+    result = requests.get(url)
+    for l in result.text.split():
+        if l.startswith("File1"):
+            return l.replace("File1=", "")
