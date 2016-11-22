@@ -27,6 +27,16 @@ def get_mpd_playlist():
 def load_radio():
     pls_url = get_playlist_url("http://www.radiofeeds.co.uk/bbc6music.pls")
     print(pls_url)
+
+    client = MPDClient()
+    client.timeout = 10
+    client.connect("192.168.0.5", 6600)
+    client.clear()
+    client.add(pls_url)
+    client.play()
+    client.close()
+    client.disconnect()
+
     return ""
 
 def get_playlist_url(url):
