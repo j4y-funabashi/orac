@@ -9,3 +9,5 @@ services:
 
     mpd_server:
         build: mpd_server
+        volumes:
+            - /media/MUSIC:/media/MEDIA
