@@ -3,9 +3,4 @@
 
 import orac
 
-from dotenv import load_dotenv, find_dotenv
-from os import environ
-import time
-
-
 print(orac.load_radio())
