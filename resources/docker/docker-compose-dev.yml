@@ -6,3 +6,6 @@ services:
         build: app
         volumes:
             - ../..:/usr/src/app
+
+    mpd_server:
+        build: mpd_server
