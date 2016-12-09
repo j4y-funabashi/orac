@@ -4,6 +4,7 @@ RUN apk update && apk upgrade && apk add \
   bash \
   sudo \
   mpd \
+  mpdscribble \
   alsa-utils
 
 RUN mkdir -p /media/MEDIA/mpd/music \
@@ -14,6 +15,7 @@ RUN mkdir -p /media/MEDIA/mpd/music \
     && chown -R mpd /media/MEDIA/mpd
 
 COPY mpd.conf /etc/mpd.conf
+COPY mpdscribble.conf /etc/mpdscribble.conf
 COPY start.sh /start.sh
 
 EXPOSE 8080 8000 6600
