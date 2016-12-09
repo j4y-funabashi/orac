@@ -1,20 +1,21 @@
 FROM hypriot/rpi-alpine-scratch
 
 RUN apk update && apk upgrade && apk add \
-        bash \
-        sudo \
-        mpd \
-        ympd
+  bash \
+  sudo \
+  mpd \
+  alsa-utils
 
-RUN mkdir -p /var/lib/mpd/music \
-    && mkdir -p /var/lib/mpd/playlists \
-    && touch /var/lib/mpd/state \
-    && touch /var/lib/mpd/tag_cache \
-    && chmod 777 -R /var/lib/mpd \
-    && chown -R mpd /var/lib/mpd
+RUN mkdir -p /media/MEDIA/mpd/music \
+    && mkdir -p /media/MEDIA/mpd/playlists \
+    && touch /media/MEDIA/mpd/state \
+    && touch /media/MEDIA/mpd/tag_cache \
+    && chmod 777 -R /media/MEDIA/mpd \
+    && chown -R mpd /media/MEDIA/mpd
 
 COPY mpd.conf /etc/mpd.conf
 COPY start.sh /start.sh
 
 EXPOSE 8080 8000 6600
+
 ENTRYPOINT ["/start.sh"]

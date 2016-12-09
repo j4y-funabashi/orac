@@ -1,4 +1,3 @@
 #!/bin/bash
 
-mpd
-ympd
+mpd --no-daemon --stdout -v /etc/mpd.conf

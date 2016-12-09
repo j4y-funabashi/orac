@@ -11,3 +11,6 @@ services:
         build: mpd_server
         volumes:
             - /media/MUSIC:/media/MEDIA
+        ports:
+            - "6600:6600"
+        privileged: true
