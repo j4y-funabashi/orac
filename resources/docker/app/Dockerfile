@@ -1,17 +1,10 @@
 FROM resin/rpi-raspbian:jessie
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-dev \
-    python3-pip \
-    python3-virtualenv \
-    python3-wheel \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
-
-# Define working directory
-WORKDIR /data
-
-# Define default command
-CMD ["bash"]
+WORKDIR /root/
+RUN apt-get -q update && \
+    apt-get -qy install python-dev python-pip python-smbus python-psutil gcc make && \
+    pip install spidev && \
+    pip install dot3k && \
+    apt-get -qy remove python-dev gcc make && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get -qy clean all
