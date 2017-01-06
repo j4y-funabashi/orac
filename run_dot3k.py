@@ -1,95 +1,86 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+
+"""
+Every dot3k.menu plugin is derived from MenuOption
+"""
 
 from dot3k.menu import MenuOption
-import orac
 
-class BusTimes(MenuOption):
 
-    def __init__(self):
-        self.output = [
-                {"text": "yo"},
-                {"text": "yo"},
-                {"text": "yo"}
-                ]
-        self.last_update = 0
-        self.update_interval = 300
-        MenuOption.__init__(self)
-
-    def update(self):
-
-        if self.millis() - self.last_update < 1000 * self.update_interval:
-            return False
-
-        self.last_update = self.millis()
-
-        stop_atco_code = "450010861"
-        api_url = "http://transportapi.com/v3/uk/bus/stop"
-        app_id = ""
-        app_key = ""
-        times = orac.get_bus_times(stop_atco_code, app_id, app_key, api_url)
-        self.output[0]["text"] = times[0]
-        self.output[1]["text"] = times[1]
-        self.output[2]["text"] = times[2]
+class HelloWorld(MenuOption):
+    """
+    When the menu is redrawn, it calls your plugins
+    redraw method and passes an instance of itself.
+    """
 
     def redraw(self, menu):
-        self.update()
+        """
+        The instance of menu has a couple of useful
+        methods which you can use to draw to the screen
 
-        menu.write_option(
-            row=0,
-            margin=1,
-            text=self.output[0]["text"]
-        )
+        menu.write_row(row_number, text_string) will write
+        a simple string to the screen at the row you choose.
+        It's a fast, no-frills way of drawing.
+
+        Anything longer than 16 characters will get truncated!
+        """
+        menu.write_row(0, 'Hello World         Hello?')
+
+        """
+        menu.write_option() is a lot more complex, it lets
+        you position text with icons, margins and auto-scrolling.
+
+        Let's give it a go with a long string of text!
+        """
         menu.write_option(
             row=1,
-            margin=1,
-            text=self.output[1]["text"]
-        )
-        menu.write_option(
-            row=2,
-            margin=1,
-            text=self.output[2]["text"]
+            text='Hello World! How are you today?',
+            scroll=True
         )
 
+        """
+        If you're not going to use a row, you should clear it!
+        """
 
-import dot3k.joystick as joystick
-import dot3k.lcd as lcd
+        menu.clear_row(2)
+
+
 from dot3k.menu import Menu
+import dot3k.backlight
+import dot3k.lcd
 import time
 
-menu = Menu({
-        'BusTimes': BusTimes()
+"""
+Let there be light!
+"""
+dot3k.backlight.rgb(255, 255, 255)
+
+"""
+The menu structure is defined as a nested dictionary,
+to "install" your plugin, it should be added like so:
+
+You will also need to pass Menu a reference to the LCD
+you wish to draw to.
+"""
+menu = Menu(
+    structure={
+        'Hello World': HelloWorld()
     },
-    lcd,  # Draw to dot3k.lcd
+    lcd=dot3k.lcd
 )
 
-REPEAT_DELAY = 0.5
+"""
+We're not going to handle any input, so go
+right ahead and virtually press "right" to
+enter your plugin:
 
-@joystick.on(joystick.UP)
-def handle_up(pin):
-    menu.up()
-    joystick.repeat(joystick.UP, menu.up, REPEAT_DELAY, 0.9)
+"""
+menu.right()
 
-@joystick.on(joystick.DOWN)
-def handle_down(pin):
-    menu.down()
-    joystick.repeat(joystick.DOWN, menu.down, REPEAT_DELAY, 0.9)
-
-@joystick.on(joystick.LEFT)
-def handle_left(pin):
-    menu.left()
-    joystick.repeat(joystick.LEFT, menu.left, REPEAT_DELAY, 0.9)
-
-@joystick.on(joystick.RIGHT)
-def handle_right(pin):
-    menu.right()
-    joystick.repeat(joystick.RIGHT, menu.right, REPEAT_DELAY, 0.9)
-
-@joystick.on(joystick.BUTTON)
-def handle_button(pin):
-    menu.select()
-
+"""
+You can decide when the menu is redrawn, but
+you'll usually want to do this:
+"""
 while 1:
-    # Redraw the menu, since we don't want to hand this off to a thread
     menu.redraw()
-    time.sleep(0.05)
+    time.sleep(0.01)
