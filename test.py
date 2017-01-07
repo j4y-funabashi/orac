@@ -15,11 +15,13 @@ class Radio(MenuOption):
 
     def redraw(self, menu):
         menu.write_option(
-                row=0,
+                row=1,
                 margin=1,
                 icon=">",
                 text="Radio stuff"
                 )
+        menu.clear_row(0)
+        menu.clear_row(2)
 
 class Status(MenuOption):
 
@@ -28,18 +30,20 @@ class Status(MenuOption):
 
     def redraw(self, menu):
         menu.write_option(
-                row=0,
+                row=1,
                 margin=1,
                 icon=">",
                 text="Status stuff"
                 )
+        menu.clear_row(0)
+        menu.clear_row(2)
 
 menu = Menu({
         'Radio': Radio(),
         'Status': Status(),
     },
     lcd,
-    Clock(),
+    Status(),
     30)
 
 """
