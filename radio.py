@@ -5,17 +5,10 @@ class Radio(MenuOption):
     def __init__(self):
         self.selected_option = 0
         self.options = [
-                'Play',
-                'Pause'
+                {'title': 'Play', 'action': self.handle_play, 'icon': ' '}
                 ]
 
         MenuOption.__init__(self)
-
-    def next_option(self):
-        self.selected_option = (self.selected_option + 1) % len(self.options)
-
-    def prev_option(self):
-        self.selected_option = (self.selected_option - 1) % len(self.options)
 
     def up(self):
         self.prev_option()
@@ -23,14 +16,26 @@ class Radio(MenuOption):
     def down(self):
         self.next_option()
 
+    def right(self):
+        self.select_option()
+
+    def next_option(self):
+        self.selected_option = (self.selected_option + 1) % len(self.options)
+
+    def prev_option(self):
+        self.selected_option = (self.selected_option - 1) % len(self.options)
+
+    def select_option(self):
+        self.options[self.selected_option]['action']()
+
     def get_current_option(self):
-        return self.options[self.selected_option]
+        return self.options[self.selected_option]['title']
 
     def get_next_option(self):
-        return self.options[(self.selected_option + 1) % len(self.options)]
+        return self.options[(self.selected_option + 1) % len(self.options)]['title']
 
     def get_prev_option(self):
-	return self.options[(self.selected_option - 1) % len(self.options)]
+	return self.options[(self.selected_option - 1) % len(self.options)]['title']
 
     def redraw(self, menu):
 	menu.write_option(
@@ -51,3 +56,6 @@ class Radio(MenuOption):
 		margin=1,
 		text=self.get_next_option()
 		)
+
+    def handle_play(self):
+        print "Playing!"
