@@ -5,7 +5,7 @@ import requests
 from mpd import MPDClient
 
 RADIO_FEED_URL = "http://www.radiofeeds.co.uk/bbc6music.pls"
-MPD_SERVER = "192.168.0.5"
+MPD_SERVER = "mpd_server"
 
 def load_radio():
     pls_url = get_playlist_url(RADIO_FEED_URL)

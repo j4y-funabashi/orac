@@ -1,5 +1,7 @@
 from dot3k.menu import MenuOption
 
+import orac
+
 class Radio(MenuOption):
 
     def __init__(self):
@@ -58,4 +60,5 @@ class Radio(MenuOption):
 		)
 
     def handle_play(self):
+        orac.load_radio()
         print "Playing!"
