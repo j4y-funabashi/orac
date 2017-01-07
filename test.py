@@ -40,6 +40,8 @@ class Status(MenuOption):
         menu.clear_row(0)
         menu.clear_row(2)
 
+backlight.rgb(255, 255, 255)
+
 menu = Menu({
         'Clock': Clock(),
         'Radio': Radio(),
