@@ -1,5 +1,6 @@
 
-Need to add the following to get access to dot3k
+### Enable SPI and i2c so python can talk to the dot3k
+
 https://www.the-captains-shack.com/post/rpi-piglow-container/
 
 ```
@@ -14,4 +15,11 @@ spi-bcm2708
 dtparam=i2c1=on
 dtparam=spi=on
 dtparam=i2c_arm=on
+```
+
+### Example fstab entry to mount usb drive with uuid
+
+```
+# /etc/fstab
+UUID=83D8-665C /media/MUSIC vfat auto,nofail,noatime,rw 0 2
 ```
