@@ -13,3 +13,5 @@ WORKDIR /usr/src/app
 
 ADD app.tar.gz /usr/src/app
 RUN pip install -r requirements.txt
+
+CMD python app/test.py
