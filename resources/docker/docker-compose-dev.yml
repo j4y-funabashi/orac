@@ -4,8 +4,6 @@ services:
 
     app:
         build: app
-        volumes:
-            - ../..:/usr/src/app
         privileged: true
 
     mpd_server:
