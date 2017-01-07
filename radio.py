@@ -9,8 +9,13 @@ class Radio(MenuOption):
         menu.write_option(
                 row=1,
                 margin=1,
-                icon=">",
-                text="Radio stuff"
+                icon="",
+                text="Play"
+                )
+        menu.write_option(
+                row=2,
+                margin=1,
+                icon="",
+                text="Stop"
                 )
         menu.clear_row(0)
-        menu.clear_row(2)
