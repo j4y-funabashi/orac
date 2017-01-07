@@ -41,6 +41,7 @@ class Status(MenuOption):
         menu.clear_row(2)
 
 menu = Menu({
+        'Clock': Clock(),
         'Radio': Radio(),
         'Status': Status(),
     },
