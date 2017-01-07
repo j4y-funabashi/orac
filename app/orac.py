@@ -14,6 +14,7 @@ def load_radio():
     client = MPDClient()
     client.timeout = MPD_TIMEOUT
     client.connect(MPD_SERVER, 6600)
+    client.setvol(100)
     client.clear()
     client.add(pls_url)
     client.play()
