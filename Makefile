@@ -1,5 +1,5 @@
 docker-build-dev:
-	tar -czvf app.tar.gz app
+	tar -czvf app.tar.gz requirements.txt app
 	mv app.tar.gz resources/docker/app/
 	docker-compose -f resources/docker/docker-compose-dev.yml build
 
