@@ -4,4 +4,5 @@ docker-build-dev:
 	docker-compose -f resources/docker/docker-compose-dev.yml build
 
 run:
-	docker-compose -f resources/docker/docker-compose-dev.yml up
+	docker-compose -f resources/docker/docker-compose-dev.yml stop
+	docker-compose -f resources/docker/docker-compose-dev.yml up -d
