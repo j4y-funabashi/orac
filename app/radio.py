@@ -7,7 +7,8 @@ class Radio(MenuOption):
     def __init__(self):
         self.selected_option = 0
         self.options = [
-                {'title': 'Play', 'action': self.handle_play, 'icon': ' '}
+                {'title': 'Play', 'action': self.handle_play, 'icon': ' '},
+                {'title': 'Stop', 'action': self.handle_stop, 'icon': ' '}
                 ]
 
         MenuOption.__init__(self)
@@ -61,4 +62,8 @@ class Radio(MenuOption):
 
     def handle_play(self):
         orac.load_radio()
+        print "Playing!"
+
+    def handle_stop(self):
+        orac.stop_radio()
         print "Playing!"

@@ -6,16 +6,27 @@ from mpd import MPDClient
 
 RADIO_FEED_URL = "http://www.radiofeeds.co.uk/bbc6music.pls"
 MPD_SERVER = "mpd_server"
+MPD_TIMEOUT = 10
 
 def load_radio():
     pls_url = get_playlist_url(RADIO_FEED_URL)
 
     client = MPDClient()
-    client.timeout = 10
+    client.timeout = MPD_TIMEOUT
     client.connect(MPD_SERVER, 6600)
     client.clear()
     client.add(pls_url)
     client.play()
+    client.close()
+    client.disconnect()
+
+    return ""
+
+def stop_radio():
+    client = MPDClient()
+    client.timeout = MPD_TIMEOUT
+    client.connect(MPD_SERVER, 6600)
+    client.stop()
     client.close()
     client.disconnect()
 
