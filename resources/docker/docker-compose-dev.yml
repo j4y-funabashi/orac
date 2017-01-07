@@ -4,10 +4,12 @@ services:
 
     app:
         build: app
+        restart: always
         privileged: true
 
     mpd_server:
         build: mpd_server
+        restart: always
         volumes:
             - /media/MUSIC:/media/MEDIA
         ports:

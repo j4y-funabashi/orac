@@ -62,8 +62,6 @@ class Radio(MenuOption):
 
     def handle_play(self):
         orac.load_radio()
-        print "Playing!"
 
     def handle_stop(self):
         orac.stop_radio()
-        print "Playing!"
