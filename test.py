@@ -8,6 +8,8 @@ import dot3k.joystick as nav
 import dot3k.lcd as lcd
 from dot3k.menu import Menu, MenuOption
 
+from clock import Clock
+
 class Radio(MenuOption):
 
     def __init__(self):
