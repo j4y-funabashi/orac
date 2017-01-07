@@ -1,5 +1,7 @@
 from dot3k.menu import MenuOption
 
+import time
+
 class Status(MenuOption):
 
     def __init__(self):
@@ -7,11 +9,11 @@ class Status(MenuOption):
 
     def redraw(self, menu):
         menu.write_option(
-                row=1,
+                row=0,
                 margin=1,
-                icon=">",
-                text="Status stuff"
+                icon="",
+                text=time.strftime(' %a %H:%M:%S ')
                 )
-        menu.clear_row(0)
+        menu.clear_row(1)
         menu.clear_row(2)
 
